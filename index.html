@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="deungbul">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#F6F8FC" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="트레저헌터" />
+  <title>트레저 헌터 — 액션 GPS & AR 보물찾기</title>
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@700&family=IBM+Plex+Mono:wght@600;700&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <!-- 폭죽 컨페티 캔버스 (보물 발견 시에만 작동) -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- 상단 토스트 알림 -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- 슬림 1줄 상단 헤더 (모바일 & PC 공통 절대 줄바꿈 없음) -->
+  <header class="app-header">
+    <div class="header-inner">
+      <button class="brand-logo" id="btn-home-logo" type="button">
+        <span class="logo-emblem">🧭</span>
+        <div class="logo-text-wrap">
+          <span class="logo-title">트레저 헌터</span>
+          <span class="cloud-dot-badge" id="cloud-status-pill" title="클라우드 실시간 연동 상태">
+            <i class="live-dot"></i><span id="cloud-status-text">LIVE</span>
+          </span>
+        </div>
+      </button>
+
+      <!-- PC용 상단 탭 (모바일에서는 하단 고정 네비게이션 바로 자동 전환) -->
+      <nav class="main-nav desktop-nav">
+        <button class="nav-tab active" data-tab="explore" type="button">탐험하기</button>
+        <button class="nav-tab" data-tab="collection" type="button">
+          내 보물 <span class="nav-badge" id="my-treasure-badge">0</span>
+        </button>
+        <button class="nav-tab" data-tab="guide" type="button">사용설명서</button>
+        <button class="nav-tab" data-tab="admin" type="button">관리자</button>
+      </nav>
+
+      <!-- 우측 컴팩트 컨트롤 (테마 3종 · 사운드 · 앱설치) -->
+      <div class="header-actions">
+        <div class="theme-switcher" title="색상 테마 변경">
+          <button class="theme-btn active" data-set-theme="deungbul" type="button">파스텔</button>
+          <button class="theme-btn" data-set-theme="kodak" type="button">빈티지</button>
+          <button class="theme-btn" data-set-theme="heavenin" type="button">포레스트</button>
+        </div>
+
+        <button class="icon-pill-btn active" id="btn-sound-toggle" type="button" title="사운드 ON/OFF">
+          🔊
+        </button>
+
+        <button class="btn-install-compact" id="btn-header-install" type="button" title="스마트폰/PC 앱 설치">
+          📲 앱설치
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 모바일 전용 하단 고정 네비게이션 바 (등불 스터디 스타일) -->
+  <nav class="mobile-bottom-nav">
+    <div class="mobile-nav-inner">
+      <button class="m-nav-btn active" data-tab="explore" type="button">
+        <span class="m-icon">🧭</span>
+        <span class="m-label">탐험하기</span>
+      </button>
+      <button class="m-nav-btn" data-tab="collection" type="button">
+        <span class="m-icon">🎁</span>
+        <span class="m-label">내 보물 <b id="m-treasure-badge">0</b></span>
+      </button>
+      <button class="m-nav-btn" data-tab="guide" type="button">
+        <span class="m-icon">📖</span>
+        <span class="m-label">설명서</span>
+      </button>
+      <button class="m-nav-btn" data-tab="admin" type="button">
+        <span class="m-icon">⚙️</span>
+        <span class="m-label">관리자</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- 메인 컨테이너 -->
+  <main class="app-main">
+    <!-- ==================== 1. 탐험하기 탭 (랜딩 & 액티브 게임) ==================== -->
+    <section id="view-explore" class="view-section active">
+
+      <!-- [1-A] 랜딩 히어로 화면 (방 입장 전) -->
+      <div id="explore-landing" class="landing-container">
+        <div class="hero-grid">
+          <!-- 메인 히어로 소개 & 오픈 방 -->
+          <div class="hero-content">
+            <div class="hero-card-featured">
+              <div class="hero-pill-badge">
+                <span class="pulse-dot"></span>
+                <span>EVERY STEP, A LITTLE DISCOVERY</span>
+              </div>
+              <h1 class="hero-headline">
+                문제를 풀고, 방향을 따라.<br />
+                숨겨진 보물을 발견하세요.
+              </h1>
+              <p class="hero-description">
+                가까워질수록 빨라지는 <strong>소나 사운드·진동 레이더</strong>와
+                <strong>AR 카메라 스캐너</strong>로 즐기는 실시간 야외 보물찾기
+              </p>
+
+              <div class="hero-cta-group">
+                <button class="btn-primary-glow" id="btn-open-join-modal" type="button">
+                  🧭 탐험 참여하기 (코드 입력)
+                </button>
+                <div class="hero-sub-ctas">
+                  <button class="btn-secondary-glass" id="btn-start-demo" type="button">
+                    🎮 먼저 체험해 보기
+                  </button>
+                  <button class="btn-secondary-glass" id="btn-hero-install" type="button">
+                    📲 폰·PC 앱 설치
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- 파스텔 3단 요약 블록 (등불 스터디 감성) -->
+            <div class="pastel-stats-row">
+              <div class="pastel-stat s-coral">
+                <span class="p-label">01 · 문제로 여는 시작</span>
+                <strong class="p-val">퀴즈 봉인 해제</strong>
+              </div>
+              <div class="pastel-stat s-butter">
+                <span class="p-label">02 · 화살표를 따라</span>
+                <strong class="p-val">소나 레이더 추적</strong>
+              </div>
+              <div class="pastel-stat s-mint">
+                <span class="p-label">03 · 나만의 발견 완성</span>
+                <strong class="p-val">코드·QR 스캔</strong>
+              </div>
+            </div>
+
+            <!-- 빠른 참여 오픈 방 리스트 -->
+            <div class="quick-rooms-box">
+              <div class="quick-rooms-header">
+                <span class="quick-title">🔥 현재 열려 있는 게임방 (터치하여 바로 입장)</span>
+              </div>
+              <div class="quick-rooms-list" id="quick-rooms-list">
+                <!-- JS 렌더링 (GODISLOVE, JESUS0691) -->
+              </div>
+            </div>
+          </div>
+
+          <!-- 우측 컴팩트 레이더 프리뷰 카드 -->
+          <div class="hero-visual-card">
+            <div class="preview-card-inner">
+              <div class="preview-top-bar">
+                <span class="status-chip"><span class="dot"></span> 탐색 중 · SONAR</span>
+                <span class="rarity-chip">남은 보물 4 / 4</span>
+              </div>
+
+              <div class="preview-radar-stage">
+                <div class="sonar-circle ring-1"></div>
+                <div class="sonar-circle ring-2"></div>
+                <div class="sonar-circle ring-3"></div>
+                <div class="sonar-sweep"></div>
+                <div class="sonar-crosshair-h"></div>
+                <div class="sonar-crosshair-v"></div>
+                <span class="compass-dir dir-n">N</span>
+                <span class="compass-dir dir-e">E</span>
+                <span class="compass-dir dir-s">S</span>
+                <span class="compass-dir dir-w">W</span>
+                <div class="target-blip-demo">💎</div>
+                <div class="preview-arrow-wrap">
+                  <div class="preview-3d-arrow">▲</div>
+                </div>
+              </div>
+
+              <div class="preview-telemetry">
+                <div class="telemetry-dist">
+                  <span class="dist-num">24</span>
+                  <span class="dist-unit">m</span>
+                </div>
+                <p class="telemetry-guide">화살표 방향으로 한 걸음씩 이동하세요</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- [1-B] 액티브 탐험 화면 (방 입장 후 또는 체험 모드) -->
+      <div id="explore-active" class="active-hunt-container hidden">
+        <!-- 상단 컴팩트 방 정보 바 -->
+        <div class="hunt-status-banner" id="hunt-mode-banner">
+          <div class="banner-left">
+            <span class="live-badge" id="active-room-badge">LIVE</span>
+            <div class="room-titles">
+              <h2 id="active-room-title">성경 보물찾기</h2>
+              <p id="active-room-subtitle">문제를 풀고 보물을 찾아보세요</p>
+            </div>
+          </div>
+          <div class="banner-right">
+            <div class="player-pill">
+              <span id="active-player-name">탐험가</span>
+              <span class="player-score" id="active-player-score">0점</span>
+            </div>
+            <button class="btn-ghost-xs" id="btn-share-active-room" type="button" title="초대 링크 복사">🔗 공유</button>
+            <button class="btn-exit-hunt" id="btn-leave-room" type="button">← 나가기</button>
+          </div>
+        </div>
+
+        <!-- 메인 2단 대시보드 -->
+        <div class="hunt-dashboard-grid">
+          <!-- 좌측 메인 액션 스테이지 -->
+          <div class="hunt-main-stage">
+
+            <!-- 스테이지 1: 퀴즈 봉인 해제 카드 -->
+            <div id="stage-quiz" class="stage-card quiz-stage-card hidden">
+              <div class="stage-card-header">
+                <span class="stage-chip">QUESTION · 문제 풀기</span>
+                <span class="remaining-pill" id="quiz-remaining-pill">남은 보물 4 / 4</span>
+              </div>
+
+              <div class="locked-treasure-preview">
+                <div class="locked-icon-aura">
+                  <span class="locked-treasure-icon" id="quiz-treasure-icon">👑</span>
+                </div>
+                <div class="locked-treasure-info">
+                  <span class="rarity-tag" id="quiz-treasure-rarity">LEGENDARY</span>
+                  <h3 id="quiz-treasure-name">솔로몬의 지혜의 황금 상자</h3>
+                  <p class="reward-pts" id="quiz-treasure-pts">+500 PTS</p>
+                </div>
+              </div>
+
+              <div class="quiz-box">
+                <p class="quiz-question-text" id="quiz-question-text">
+                  문제를 불러오는 중입니다...
+                </p>
+
+                <form id="form-quiz-answer" class="quiz-form">
+                  <div class="quiz-input-wrap">
+                    <input
+                      type="text"
+                      id="input-quiz-answer"
+                      placeholder="정답을 입력하세요"
+                      autocomplete="off"
+                      required
+                    />
+                    <button type="submit" class="btn-primary-glow">
+                      정답 확인하고 보물 열기
+                    </button>
+                  </div>
+                </form>
+
+                <div class="quiz-feedback hidden" id="quiz-feedback-msg"></div>
+
+                <div class="quiz-footer-actions">
+                  <button type="button" class="btn-ghost-sm" id="btn-toggle-quiz-hint">
+                    💡 힌트 보기
+                  </button>
+                  <button type="button" class="btn-ghost-sm" id="btn-skip-quiz-target">
+                    🔄 다른 보물 문제로 변경
+                  </button>
+                </div>
+
+                <div class="hint-collapse-box hidden" id="quiz-hint-box">
+                  <strong>힌트:</strong> <span id="quiz-hint-text"></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 스테이지 2: GPS + 나침반 소나 레이더 스테이지 -->
+            <div id="stage-radar" class="stage-card radar-stage-card hidden">
+              <div class="stage-card-header">
+                <span class="stage-chip" id="radar-heat-chip">● 탐색 중</span>
+                <span class="remaining-pill" id="radar-remaining-pill">남은 보물 4 / 4</span>
+              </div>
+
+              <div class="radar-target-banner">
+                <span class="target-big-icon" id="radar-treasure-icon">👑</span>
+                <div class="target-title-wrap">
+                  <span class="rarity-tag" id="radar-treasure-rarity">LEGENDARY</span>
+                  <h3 class="target-title" id="radar-treasure-name">솔로몬의 지혜의 황금 상자</h3>
+                </div>
+                <div class="target-pts-badge" id="radar-treasure-pts">+500점</div>
+              </div>
+
+              <!-- 소나 레이더 디스크 -->
+              <div class="hologram-radar-wrapper" id="radar-heat-container" data-heat="warm">
+                <div class="hologram-radar-disc" id="radar-disc">
+                  <div class="compass-dial-ring" id="compass-dial-ring">
+                    <span class="dial-mark mark-n">N</span>
+                    <span class="dial-mark mark-e">E</span>
+                    <span class="dial-mark mark-s">S</span>
+                    <span class="dial-mark mark-w">W</span>
+                  </div>
+
+                  <div class="radar-ring r-outer"></div>
+                  <div class="radar-ring r-mid"></div>
+                  <div class="radar-ring r-inner"></div>
+                  <div class="radar-sweep-beam"></div>
+                  <div class="radar-axis-x"></div>
+                  <div class="radar-axis-y"></div>
+
+                  <div class="radar-target-blip" id="radar-target-blip">
+                    <span class="blip-core">💎</span>
+                  </div>
+
+                  <div class="radar-center-arrow" id="radar-direction-arrow">
+                    <svg viewBox="0 0 100 100" class="arrow-svg">
+                      <polygon points="50,10 82,82 50,66 18,82" fill="currentColor" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 거리 & 온도 게이지 -->
+              <div class="radar-telemetry-panel">
+                <div class="distance-readout-wrap">
+                  <span class="distance-number" id="radar-distance-num">85</span>
+                  <span class="distance-unit">m</span>
+                </div>
+
+                <div class="heat-meter-wrap">
+                  <div class="heat-meter-labels">
+                    <span>멀음</span>
+                    <span id="heat-status-text">접근 중</span>
+                    <span>코앞!</span>
+                  </div>
+                  <div class="heat-meter-track">
+                    <div class="heat-meter-fill" id="heat-meter-fill" style="width: 55%;"></div>
+                  </div>
+                </div>
+
+                <p class="direction-guidance-text" id="radar-guidance-text">
+                  화살표가 가리키는 방향으로 이동하세요
+                </p>
+
+                <div class="radar-control-buttons">
+                  <button type="button" class="btn-sensor-connect" id="btn-connect-sensors">
+                    🧭 위치 · 방향 연결하기
+                  </button>
+                  <button type="button" class="btn-ar-launch" id="btn-open-ar-modal">
+                    📷 AR 카메라 · QR 스캔
+                  </button>
+                </div>
+
+                <div class="sim-action-pad">
+                  <div class="sim-pad-header">가상 이동 테스트 (실내·체험용)</div>
+                  <div class="sim-pad-buttons">
+                    <button type="button" class="btn-sim-action" id="btn-sim-step">🏃 20m 전진</button>
+                    <button type="button" class="btn-sim-action" id="btn-sim-turn">🧭 정면 정렬</button>
+                    <button type="button" class="btn-sim-action hot" id="btn-sim-close">⚡ 5m 코앞</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 스테이지 3: 모든 보물 발견 완료 -->
+            <div id="stage-finale" class="stage-card finale-stage-card hidden">
+              <div class="finale-crown">🏆</div>
+              <span class="stage-chip">ADVENTURE COMPLETE</span>
+              <h2>탐험 종료, 모두 수고했어요!</h2>
+              <p>이번 탐험의 모든 보물이 발견되었습니다. 내 보물함과 순위를 확인해 보세요.</p>
+              <div class="finale-actions">
+                <button type="button" class="btn-primary-glow" data-go-tab="collection">
+                  🎁 내 보물함 보기
+                </button>
+                <button type="button" class="btn-secondary-glass" id="btn-finale-home">
+                  🏠 처음으로
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- 우측 사이드바 -->
+          <div class="hunt-sidebar">
+            <div class="sidebar-card clue-action-card" id="sidebar-clue-card">
+              <div class="card-kicker">A LITTLE CLUE</div>
+              <h3>거의 다 왔다면?</h3>
+              <p class="card-sub">
+                GPS에는 오차가 있어요. 근처에서는 힌트로 주변을 살펴보세요.
+              </p>
+
+              <button type="button" class="btn-clue-toggle" id="btn-toggle-location-hint">
+                ? 보물 힌트 보기
+              </button>
+
+              <div class="location-hint-box hidden" id="location-hint-box">
+                <p id="location-hint-text">퀴즈를 먼저 풀면 은신처 힌트가 열립니다.</p>
+              </div>
+
+              <div class="claim-cta-group">
+                <button type="button" class="btn-claim-primary" id="btn-open-claim-modal">
+                  🎁 보물을 찾았어요 (코드 입력)
+                </button>
+                <button type="button" class="btn-claim-ar" id="btn-sidebar-ar">
+                  📷 AR 카메라로 QR 스캔
+                </button>
+              </div>
+
+              <div class="skip-target-wrap" id="skip-target-wrap">
+                <button type="button" class="btn-ghost-full" id="btn-skip-radar-target">
+                  🔄 다른 보물로 건너뛰기
+                </button>
+              </div>
+            </div>
+
+            <div class="sidebar-card progress-card">
+              <div class="card-kicker">MY JOURNEY</div>
+              <div class="journey-header">
+                <h3>나의 탐험 기록</h3>
+                <span class="found-count-pill" id="sidebar-my-found">0개 발견</span>
+              </div>
+
+              <div class="room-progress-bar">
+                <div class="room-progress-fill" id="room-progress-fill" style="width: 25%;"></div>
+              </div>
+              <div class="room-progress-meta">
+                <span id="room-progress-text">전체 4개 중 남은 보물 4개</span>
+                <span class="sync-indicator" id="sync-indicator-text">3초마다 갱신</span>
+              </div>
+            </div>
+
+            <div class="sidebar-card live-feed-card">
+              <div class="card-kicker">LIVE RANKING &amp; FEED</div>
+              <h3>🏆 실시간 순위 &amp; 소식</h3>
+              <div class="leaderboard-mini" id="leaderboard-mini"></div>
+              <div class="live-feed-list" id="live-feed-list"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 2. 내 보물함 탭 ==================== -->
+    <section id="view-collection" class="view-section hidden">
+      <div class="section-header-box">
+        <span class="section-kicker">COLLECT LITTLE MOMENTS</span>
+        <h2>나의 보물함</h2>
+        <p>탐험에서 발견한 보물과 획득 점수가 기록됩니다.</p>
+      </div>
+
+      <div class="vault-stats-row">
+        <div class="vault-stat-card s-coral">
+          <span class="stat-label">총 획득 점수</span>
+          <strong class="stat-value" id="vault-total-score">0점</strong>
+        </div>
+        <div class="vault-stat-card s-butter">
+          <span class="stat-label">발견한 보물</span>
+          <strong class="stat-value" id="vault-total-count">0개</strong>
+        </div>
+        <div class="vault-stat-card s-mint">
+          <span class="stat-label">현재 참여 방</span>
+          <strong class="stat-value" id="vault-current-room">없음</strong>
+        </div>
+      </div>
+
+      <div id="vault-treasures-grid" class="vault-treasures-grid"></div>
+    </section>
+
+    <!-- ==================== 3. 사용설명서 탭 ==================== -->
+    <section id="view-guide" class="view-section hidden">
+      <div class="section-header-box">
+        <span class="section-kicker">HOW TO EXPLORE</span>
+        <h2>즐거운 탐험을 위한 사용설명서</h2>
+        <p>참가자와 진행자(관리자)를 위한 단계별 안내입니다.</p>
+      </div>
+
+      <div class="moments-preview-card">
+        <h3>우리 모험의 세 가지 순간 (미리보기)</h3>
+        <div class="moments-btn-row">
+          <button type="button" class="btn-moment-preview" id="btn-preview-claim">
+            ✦ 발견의 순간 (상자 오픈)
+          </button>
+          <button type="button" class="btn-moment-preview" id="btn-preview-late">
+            ☁ 한발 늦은 순간
+          </button>
+          <button type="button" class="btn-moment-preview" id="btn-preview-finale">
+            ⚑ 탐험의 피날레
+          </button>
+          <button type="button" class="btn-moment-preview" id="btn-guide-install">
+            📲 앱 설치 안내
+          </button>
+        </div>
+      </div>
+
+      <div class="manual-two-col">
+        <div class="manual-panel">
+          <div class="manual-badge">참가자 안내</div>
+          <h3>🤠 보물찾기 참여 방법</h3>
+          <ol class="manual-step-list">
+            <li>
+              <strong>01 · 방 코드 입장</strong>
+              <p>안내받은 참여 코드(<code>GODISLOVE</code> 또는 <code>JESUS0691</code>)와 별명을 입력해 시작합니다. (카카오톡에서 열렸다면 메뉴에서 <strong>다른 브라우저로 열기</strong>를 권장합니다.)</p>
+            </li>
+            <li>
+              <strong>02 · 퀴즈 풀고 보물 열기</strong>
+              <p>배정된 보물의 문제를 풀면 레이더가 열립니다. 어려우면 <strong>[힌트 보기]</strong>를 누르세요.</p>
+            </li>
+            <li>
+              <strong>03 · 화살표와 소리를 따라 이동</strong>
+              <p><strong>[위치 · 방향 연결하기]</strong>를 누르고 화살표 방향으로 이동합니다. 가까워질수록 레이더 색이 변하며 소리가 빨라집니다.</p>
+            </li>
+            <li>
+              <strong>04 · 확인 코드 입력 또는 QR 스캔</strong>
+              <p>근처(15m 이내)에 오면 <strong>[보물 힌트 보기]</strong>로 숨긴 곳을 찾고, 보물에 적힌 확인 코드를 입력하거나 AR 카메라로 QR을 찍어 상자를 여세요!</p>
+            </li>
+          </ol>
+        </div>
+
+        <div class="manual-panel">
+          <div class="manual-badge admin">진행자(관리자) 안내</div>
+          <h3>⚙️ 행사 방 만들기 &amp; 운영 방법</h3>
+          <ol class="manual-step-list">
+            <li>
+              <strong>01 · 관리실 입장 (비밀번호: 1234)</strong>
+              <p><strong>[관리자]</strong> 메뉴에서 비밀번호 <code>1234</code>를 입력해 들어갑니다.</p>
+            </li>
+            <li>
+              <strong>02 · 현장에서 GPS 찍으며 보물 등록</strong>
+              <p>보물 숨길 장소에서 <strong>[📍 내 현재 GPS 위치 찍기]</strong>를 누르면 위도·경도가 자동 입력됩니다. 문제와 정답, 확인 코드를 적어 방을 생성하세요.</p>
+            </li>
+            <li>
+              <strong>03 · 보물 QR 스티커 인쇄 &amp; 참가자 초대</strong>
+              <p><strong>[🖨️ 보물 QR스티커]</strong>를 인쇄해 현장에 숨기고, <strong>[🔗 초대링크 복사]</strong> 또는 <strong>[📱 입장용 QR]</strong>로 참가자를 초대합니다.</p>
+            </li>
+            <li>
+              <strong>04 · 결과 엑셀 다운로드 &amp; 재게임 초기화</strong>
+              <p>종료 후 <strong>[📊 결과 엑셀(CSV)]</strong>로 순위표를 저장하고, 다음 조가 다시 할 때는 <strong>[🔄 초기화]</strong>를 누르면 모든 보물이 리셋됩니다.</p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 4. 관리자 스튜디오 탭 ==================== -->
+    <section id="view-admin" class="view-section hidden">
+      <div class="section-header-box">
+        <span class="section-kicker">ADMIN STUDIO</span>
+        <h2>탐험 관리실</h2>
+        <p>새로운 게임방을 만들거나 보물 QR 스티커 인쇄 및 결과 엑셀을 다운로드합니다.</p>
+      </div>
+
+      <!-- 관리자 로그인 게이트 -->
+      <div id="admin-login-box" class="admin-auth-card">
+        <h3>🔑 관리자 인증</h3>
+        <p>관리자 비밀번호를 입력하세요. (기본값: <code>1234</code>)</p>
+        <form id="form-admin-login" class="admin-login-form">
+          <input type="password" id="input-admin-pass" value="1234" placeholder="비밀번호 (1234)" required />
+          <button type="submit" class="btn-primary-glow">관리실 들어가기</button>
+        </form>
+      </div>
+
+      <!-- 관리자 메인 대시보드 -->
+      <div id="admin-dashboard" class="admin-dashboard hidden">
+        <div class="firebase-config-banner">
+          <div class="fb-banner-header">
+            <div>
+              <span class="stage-chip">🔥 FIREBASE CLOUD DB</span>
+              <h3>실시간 클라우드 DB 설정</h3>
+            </div>
+            <button type="button" class="btn-ghost-sm" id="btn-toggle-fb-guide">연동 안내</button>
+          </div>
+
+          <div class="fb-input-row">
+            <input
+              type="url"
+              id="input-firebase-url"
+              placeholder="https://treasure-hunt-e306b-default-rtdb.firebaseio.com"
+            />
+            <button type="button" class="btn-primary-glow" id="btn-save-firebase-url">연결 저장</button>
+            <button type="button" class="btn-secondary-glass" id="btn-reset-cloud-seed">
+              기본 방(GODISLOVE / JESUS0691) 복원
+            </button>
+          </div>
+
+          <div id="fb-guide-collapse" class="fb-guide-box hidden">
+            <p>현재 <code>treasure-hunt-e306b-default-rtdb.firebaseio.com</code>에 실시간 연동되어 있습니다.</p>
+          </div>
+        </div>
+
+        <div class="admin-grid">
+          <div class="admin-panel">
+            <div class="admin-panel-head">
+              <h3>📂 개설된 게임방</h3>
+              <button type="button" class="btn-ghost-sm" id="btn-refresh-admin-rooms">🔄 새로고침</button>
+            </div>
+            <div id="admin-rooms-list" class="admin-rooms-list"></div>
+          </div>
+
+          <div class="admin-panel">
+            <h3>✨ 새 게임방 만들기</h3>
+            <form id="form-create-room" class="admin-create-form">
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label>방 참여 코드</label>
+                  <div style="display:flex; gap:6px;">
+                    <input type="text" id="admin-new-code" placeholder="예: GODISLOVE" required />
+                    <button type="button" class="btn-secondary-sm" id="btn-gen-random-code">🎲 랜덤</button>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>테마 선택</label>
+                  <select id="admin-new-theme">
+                    <option value="deungbul">파스텔 스카이 (기본)</option>
+                    <option value="kodak">빈티지 골드</option>
+                    <option value="heavenin">포레스트 그린</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>방 제목</label>
+                <input type="text" id="admin-new-title" placeholder="예: 장유교회 수련회 보물찾기" required />
+              </div>
+
+              <div class="form-group">
+                <label>안내 문구</label>
+                <input type="text" id="admin-new-subtitle" placeholder="예: 말씀 퀴즈를 풀고 숨겨진 보물을 찾으세요!" />
+              </div>
+
+              <div class="admin-treasures-header">
+                <h4>💎 보물 &amp; 위치 &amp; 퀴즈</h4>
+                <button type="button" class="btn-secondary-sm" id="btn-add-treasure-row">+ 보물 추가</button>
+              </div>
+
+              <div id="admin-treasure-rows" class="admin-treasure-rows"></div>
+
+              <button type="submit" class="btn-primary-glow btn-full">
+                🚀 게임방 생성하기
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================== 모달 1: 탐험 참여하기 ==================== -->
+  <div id="modal-join" class="modal-backdrop hidden">
+    <div class="modal-card">
+      <button type="button" class="modal-close" data-close-modal="modal-join">✕</button>
+      <div class="modal-kicker">JOIN ADVENTURE</div>
+      <h3>탐험에 참여하기</h3>
+      <p>안내받은 참여 코드와 이름(별명)을 입력해 주세요.</p>
+
+      <form id="form-join-room" class="modal-form">
+        <div class="form-group">
+          <label for="input-join-code">참여 코드</label>
+          <input type="text" id="input-join-code" class="code-big-input" placeholder="GODISLOVE" required />
+        </div>
+        <div class="form-group">
+          <label for="input-join-nickname">이름 (별명)</label>
+          <input type="text" id="input-join-nickname" placeholder="예: 다윗" required />
+        </div>
+        <div id="join-error-msg" class="form-error hidden"></div>
+        <button type="submit" class="btn-primary-glow btn-full">
+          탐험 시작하기
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== 모달 2: 현장 확인 코드 입력 ==================== -->
+  <div id="modal-claim" class="modal-backdrop hidden">
+    <div class="modal-card">
+      <button type="button" class="modal-close" data-close-modal="modal-claim">✕</button>
+      <div class="modal-kicker">TREASURE CODE</div>
+      <h3>보물을 발견했나요?</h3>
+      <p>보물에 적힌 <strong>현장 확인 코드</strong>를 입력해 주세요.</p>
+
+      <form id="form-claim-code" class="modal-form">
+        <div class="form-group">
+          <label for="input-claim-code">현장 확인 코드</label>
+          <input
+            type="text"
+            id="input-claim-code"
+            class="code-big-input"
+            placeholder="예: EDEN01"
+            autocomplete="off"
+            required
+          />
+        </div>
+        <div class="demo-code-helper" id="claim-code-helper"></div>
+        <div id="claim-error-msg" class="form-error hidden"></div>
+        <button type="submit" class="btn-primary-glow btn-full">
+          발견 완료하기
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== 모달 3: AR 카메라 & QR 스캐너 ==================== -->
+  <div id="modal-ar" class="modal-backdrop hidden">
+    <div class="modal-card ar-modal-card">
+      <div class="ar-hud-header">
+        <div class="ar-hud-title">
+          <span class="ar-rec-dot"></span>
+          <span>AR 카메라 &amp; QR 스캐너</span>
+        </div>
+        <button type="button" class="modal-close ar-close" id="btn-close-ar">✕ 닫기</button>
+      </div>
+
+      <div class="ar-viewport" id="ar-viewport">
+        <video id="ar-video" autoplay playsinline muted></video>
+        <div class="ar-holo-fallback" id="ar-holo-fallback">
+          <div class="holo-grid-floor"></div>
+        </div>
+
+        <div class="ar-hud-overlay">
+          <div class="hud-top-telemetry">
+            <span id="ar-hud-target">TARGET</span>
+            <span id="ar-hud-dist">DIST: 12m</span>
+          </div>
+
+          <div class="ar-floating-treasure" id="ar-floating-treasure">
+            <div class="ar-treasure-emoji" id="ar-treasure-emoji">🎁</div>
+            <div class="ar-treasure-label">보물 터치하여 코드 스캔</div>
+          </div>
+
+          <div class="hud-bottom-bar">
+            <p id="ar-scan-status">카메라로 현장 QR 코드를 비추거나 보물 아이콘을 터치하세요</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="ar-controls-footer">
+        <button type="button" class="btn-primary-glow" id="btn-ar-sim-scan">
+          ⚡ 가상 QR 즉시 스캔
+        </button>
+        <button type="button" class="btn-secondary-glass" id="btn-ar-manual-code">
+          ⌨️ 코드 직접 입력
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 모달 4: 보물상자 오픈 축하 모달 ==================== -->
+  <div id="modal-celebration" class="modal-backdrop celebration-backdrop hidden">
+    <div class="modal-card celebration-card">
+      <div id="chest-tap-stage" class="chest-tap-stage">
+        <div class="modal-kicker">TREASURE FOUND!</div>
+        <h3>보물상자를 터치해서 여세요!</h3>
+        <div class="interactive-chest-box" id="btn-tap-chest">
+          <div class="chest-3d-icon" id="chest-3d-icon">🧰</div>
+          <div class="chest-hit-counter" id="chest-hit-counter">터치 횟수: ⚡⚡⚡</div>
+        </div>
+        <button type="button" class="btn-primary-glow btn-full" id="btn-instant-open-chest">
+          ⚡ 바로 보물상자 열기
+        </button>
+      </div>
+
+      <div id="chest-opened-stage" class="chest-opened-stage hidden">
+        <div class="modal-kicker">야호! 보물 발견!</div>
+        <div class="opened-Burst-icon" id="celeb-treasure-icon">👑</div>
+        <span class="rarity-tag" id="celeb-treasure-rarity">LEGENDARY</span>
+        <h2 id="celeb-treasure-name">솔로몬의 지혜의 황금 상자</h2>
+        <div class="celeb-points-pill" id="celeb-treasure-pts">+500 PTS 획득!</div>
+        <p class="celeb-desc" id="celeb-desc">
+          가장 먼저 보물을 발견하여 내 보물함에 기록되었습니다!
+        </p>
+        <button type="button" class="btn-primary-glow btn-full" id="btn-celeb-next">
+          다음 보물 계속 찾기
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 모달 5: 알림 모달 ==================== -->
+  <div id="modal-alert" class="modal-backdrop hidden">
+    <div class="modal-card alert-modal-card">
+      <div class="alert-big-icon" id="alert-modal-icon">☁️</div>
+      <div class="modal-kicker" id="alert-modal-kicker">NOTICE</div>
+      <h3 id="alert-modal-title">한발 늦은 순간!</h3>
+      <p id="alert-modal-desc">다른 탐험가가 먼저 보물을 발견했습니다.</p>
+      <button type="button" class="btn-primary-glow btn-full" id="btn-alert-ok">확인</button>
+    </div>
+  </div>
+
+  <!-- ==================== 모달 6: QR 인쇄 모달 ==================== -->
+  <div id="modal-qr-print" class="modal-backdrop hidden">
+    <div class="modal-card qr-print-modal-card">
+      <div class="qr-print-header">
+        <h3 id="qr-modal-title">🖨️ 보물 QR &amp; 확인 코드 카드</h3>
+        <div class="qr-print-actions">
+          <button type="button" class="btn-primary-glow" id="btn-print-cards">🖨️ 인쇄</button>
+          <button type="button" class="modal-close" data-close-modal="modal-qr-print">✕</button>
+        </div>
+      </div>
+      <p class="qr-print-sub" id="qr-modal-subtitle">카드를 인쇄하여 보물 은신처에 부착하세요.</p>
+      <div id="qr-cards-container" class="qr-cards-grid"></div>
+    </div>
+  </div>
+
+  <!-- ==================== 모달 7: 앱 설치 안내 모달 ==================== -->
+  <div id="modal-install" class="modal-backdrop hidden">
+    <div class="modal-card install-modal-card">
+      <button type="button" class="modal-close" data-close-modal="modal-install">✕</button>
+      <div class="modal-kicker">INSTALL APP</div>
+      <h3>📲 스마트폰 &amp; PC 앱 설치</h3>
+      <p>홈 화면(바탕화면)에 앱으로 추가하면 전체화면으로 편리하게 이용할 수 있습니다.</p>
+
+      <div class="install-direct-box">
+        <button type="button" class="btn-primary-glow btn-full" id="btn-trigger-pwa-install">
+          ⚡ 원클릭 앱 설치하기
+        </button>
+        <p class="install-direct-note" id="install-direct-note">
+          설치 창이 뜨지 않는 경우 아래 기기별 안내를 참고해 주세요.
+        </p>
+      </div>
+
+      <div class="install-os-grid">
+        <div class="install-os-card">
+          <div class="os-title">🤖 갤럭시 / 안드로이드</div>
+          <ol>
+            <li>크롬 또는 삼성 인터넷으로 접속 (카톡에서는 <code>⋮</code> → <strong>다른 브라우저로 열기</strong>)</li>
+            <li>위의 <strong>[원클릭 앱 설치]</strong> 또는 메뉴(<code>⋮</code>) → <strong>[앱 설치 / 홈 화면에 추가]</strong> 클릭</li>
+          </ol>
+        </div>
+        <div class="install-os-card">
+          <div class="os-title">🍎 아이폰 (Safari)</div>
+          <ol>
+            <li>Safari 브라우저로 접속</li>
+            <li>하단 가운데 <strong>공유 버튼(<code>[↑]</code>)</strong> → <strong>[홈 화면에 추가]</strong> 클릭</li>
+          </ol>
+        </div>
+        <div class="install-os-card">
+          <div class="os-title">💻 PC (크롬 / 엣지)</div>
+          <ol>
+            <li>주소창 오른쪽 끝 <strong>[🖥️ 앱 설치]</strong> 아이콘 또는 위 버튼 클릭</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="install-qr-box">
+        <img
+          src="https://api.qrserver.com/v1/create-qr-code/?size=110x110&data=https%3A%2F%2Fjangyu-church.github.io%2Ftreasure-hunter%2F"
+          alt="접속 QR"
+          width="84"
+          height="84"
+        />
+        <div class="install-qr-text">
+          <strong>📱 스마트폰 카메라로 QR 스캔</strong>
+          <span><code>jangyu-church.github.io/treasure-hunter</code>로 바로 접속됩니다.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>

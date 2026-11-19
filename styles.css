@@ -1,0 +1,2394 @@
+/* ==========================================================================
+   트레저 헌터 — 모바일 퍼스트 컴팩트 UI & 3대 세련된 테마 (등불 / 코닥 / 헤븐인)
+   ========================================================================== */
+
+:root,
+html[data-theme="deungbul"] {
+  --bg: #F6F8FC;
+  --top-bg: rgba(246, 248, 252, 0.92);
+  --surface: #FFFFFF;
+  --surface-alt: #EEF2F9;
+  --ink: #1B1F2A;
+  --muted: #5F6878;
+  --line: #E3E8F0;
+
+  /* 메인 히어로 & 레이더 스테이지 카드 (등불 스터디 블루 카드) */
+  --stage-bg: linear-gradient(150deg, #3B8DE0 0%, #5B7FEA 100%);
+  --stage-ink: #FFFFFF;
+  --stage-muted: #D6EEFB;
+  --stage-highlight: #FFE08A;
+  --stage-ring: rgba(255, 255, 255, 0.24);
+  --stage-sweep: rgba(255, 224, 138, 0.34);
+  --stage-shadow: 0 10px 24px rgba(59, 141, 224, 0.26);
+
+  /* 메인 버튼 (등불 스터디 옐로우 브릭 버튼) */
+  --cta-bg: #FFD166;
+  --cta-ink: #3B2A00;
+  --cta-lip: #E8B23F;
+
+  /* 보조 액센트 (코랄 레드 / 스카이 블루 / 민트 그린) */
+  --brand-accent: #FF6B6B;
+  --brand-accent-lip: #E25555;
+  --blue-accent: #4DABF7;
+  --blue-accent-lip: #3A8FD9;
+  --mint-accent: #38D9A9;
+  --mint-accent-lip: #20B98C;
+  --leaf: #0CA678;
+
+  /* 파스텔 요약 블록 3종 */
+  --s1-bg: #FFE3E3;
+  --s1-ink: #E03131;
+  --s2-bg: #FFF3C4;
+  --s2-ink: #B86E00;
+  --s3-bg: #D3F9EC;
+  --s3-ink: #0CA678;
+
+  --card-shadow: 0 4px 16px rgba(30, 50, 90, 0.07);
+}
+
+/* ==================== 테마 2: 코닥 필름 (Kodak Gold / Portra 감성) ==================== */
+html[data-theme="kodak"] {
+  --bg: #F6EFE2;
+  --top-bg: rgba(246, 239, 226, 0.94);
+  --surface: #FFFDF8;
+  --surface-alt: #EFE5D4;
+  --ink: #221A14;
+  --muted: #6E5D4E;
+  --line: #E4D7C3;
+
+  --stage-bg: linear-gradient(155deg, #241D18 0%, #382C22 100%);
+  --stage-ink: #FDF8EE;
+  --stage-muted: #D8C8B4;
+  --stage-highlight: #FFB800;
+  --stage-ring: rgba(255, 184, 0, 0.25);
+  --stage-sweep: rgba(255, 184, 0, 0.34);
+  --stage-shadow: 0 10px 26px rgba(36, 29, 24, 0.24);
+
+  --cta-bg: #FFB800;
+  --cta-ink: #22180E;
+  --cta-lip: #CC8E00;
+
+  --brand-accent: #D9381E;
+  --brand-accent-lip: #B02812;
+  --blue-accent: #D97706;
+  --blue-accent-lip: #B45309;
+  --mint-accent: #D9381E;
+  --mint-accent-lip: #B02812;
+  --leaf: #B45309;
+
+  --s1-bg: #FCE2DB;
+  --s1-ink: #C82E14;
+  --s2-bg: #FDECC4;
+  --s2-ink: #9E5E00;
+  --s3-bg: #EBE3D5;
+  --s3-ink: #4A3B2C;
+
+  --card-shadow: 0 4px 16px rgba(60, 40, 20, 0.08);
+}
+
+/* ==================== 테마 3: 헤븐인 보물찾기 오리지널 (Heavenin Forest) ==================== */
+html[data-theme="heavenin"] {
+  --bg: #F4F2EC;
+  --top-bg: rgba(244, 242, 236, 0.94);
+  --surface: #FFFFFF;
+  --surface-alt: #EAE7DF;
+  --ink: #1C3126;
+  --muted: #6C7870;
+  --line: #E3E0D6;
+
+  --stage-bg: linear-gradient(165deg, #234233 0%, #1B3428 100%);
+  --stage-ink: #F7F6F1;
+  --stage-muted: #B6C7BC;
+  --stage-highlight: #E4EEBA;
+  --stage-ring: rgba(228, 238, 186, 0.22);
+  --stage-sweep: rgba(228, 238, 186, 0.32);
+  --stage-shadow: 0 10px 26px rgba(27, 52, 40, 0.2);
+
+  --cta-bg: #E4EEBA;
+  --cta-ink: #1C3528;
+  --cta-lip: #C3D28B;
+
+  --brand-accent: #234233;
+  --brand-accent-lip: #162B21;
+  --blue-accent: #3B6E54;
+  --blue-accent-lip: #2A523E;
+  --mint-accent: #234233;
+  --mint-accent-lip: #162B21;
+  --leaf: #234233;
+
+  --s1-bg: #EBF0E6;
+  --s1-ink: #234233;
+  --s2-bg: #F3EFE2;
+  --s2-ink: #6B5B35;
+  --s3-bg: #E6EFE9;
+  --s3-ink: #1F4E37;
+
+  --card-shadow: 0 4px 16px rgba(28, 49, 38, 0.06);
+}
+
+/* ==================== 기본 리셋 & 타이포그래피 ==================== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+  background-color: var(--bg);
+  color: var(--ink);
+  min-height: 100vh;
+  overflow-x: hidden;
+  line-height: 1.55;
+  font-size: 14.5px;
+  word-break: keep-all;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+button,
+input,
+select {
+  font-family: inherit;
+  word-break: keep-all;
+}
+
+.hidden {
+  display: none !important;
+}
+
+#bg-particles,
+.aurora-bg {
+  display: none !important;
+}
+
+#confetti-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ==================== 슬림 1줄 상단 헤더 (절대 줄바꿈 없음!) ==================== */
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--top-bg);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+}
+
+.header-inner {
+  max-width: 1020px;
+  margin: 0 auto;
+  height: 56px;
+  padding: 0 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: nowrap;
+}
+
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  color: var(--ink);
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.logo-emblem {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: var(--stage-bg);
+  color: var(--stage-ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+}
+
+.logo-text-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.logo-title {
+  font-size: 16.5px;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+}
+
+.cloud-dot-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--leaf);
+  background: var(--s3-bg);
+  padding: 2px 7px;
+  border-radius: 999px;
+}
+
+.live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--leaf);
+  display: inline-block;
+}
+
+/* 데스크톱 상단 네비게이션 */
+.desktop-nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--surface);
+  padding: 4px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+}
+
+.nav-tab {
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.18s;
+}
+
+.nav-tab:hover {
+  color: var(--ink);
+}
+
+.nav-tab.active {
+  background: var(--brand-accent);
+  color: #FFFFFF;
+}
+
+.nav-badge {
+  background: rgba(0, 0, 0, 0.18);
+  color: inherit;
+  padding: 1px 6px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+/* 우측 컴팩트 컨트롤 바 */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.theme-switcher {
+  display: inline-flex;
+  background: var(--surface);
+  border: 1.5px solid var(--line);
+  border-radius: 999px;
+  padding: 2px;
+  gap: 2px;
+}
+
+.theme-btn {
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-size: 11.5px;
+  font-weight: 800;
+  padding: 4px 9px;
+  border-radius: 999px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s;
+}
+
+.theme-btn.active {
+  background: var(--ink);
+  color: var(--surface);
+}
+
+.icon-pill-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1.5px solid var(--line);
+  color: var(--ink);
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.btn-install-compact {
+  background: var(--surface);
+  border: 1.5px solid var(--line);
+  color: var(--ink);
+  font-size: 11.5px;
+  font-weight: 800;
+  padding: 5px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn-install-compact:hover {
+  border-color: var(--brand-accent);
+}
+
+/* ==================== 모바일 전용 하단 고정 탭바 (등불 스터디 스타일) ==================== */
+.mobile-bottom-nav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 120;
+  background: var(--surface);
+  border-top: 2px solid var(--line);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.05);
+}
+
+.mobile-nav-inner {
+  max-width: 480px;
+  margin: 0 auto;
+  height: 56px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.m-nav-btn {
+  background: none;
+  border: none;
+  color: var(--muted);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.m-nav-btn .m-icon {
+  font-size: 17px;
+  line-height: 1;
+}
+
+.m-nav-btn .m-label {
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.m-nav-btn .m-label b {
+  color: var(--brand-accent);
+}
+
+.m-nav-btn.active {
+  color: var(--brand-accent);
+}
+
+/* ==================== 메인 컨테이너 ==================== */
+.app-main {
+  max-width: 1020px;
+  margin: 0 auto;
+  padding: 16px 16px 96px;
+}
+
+/* ==================== 랜딩 히어로 & 파스텔 블록 ==================== */
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 18px;
+  align-items: stretch;
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.hero-card-featured {
+  background: var(--stage-bg);
+  color: var(--stage-ink);
+  border-radius: 20px;
+  padding: 22px 20px;
+  box-shadow: var(--stage-shadow);
+}
+
+.hero-pill-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--stage-highlight);
+  margin-bottom: 8px;
+}
+
+.pulse-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--stage-highlight);
+}
+
+.hero-headline {
+  font-family: "Gowun Batang", "Noto Sans KR", serif;
+  font-size: clamp(20px, 4.5vw, 27px);
+  font-weight: 700;
+  line-height: 1.35;
+  margin-bottom: 8px;
+  color: var(--stage-ink);
+  word-break: keep-all;
+}
+
+.hero-description {
+  font-size: 13.5px;
+  color: var(--stage-muted);
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.hero-description strong {
+  color: var(--stage-highlight);
+}
+
+.hero-cta-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.hero-sub-ctas {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+/* 등불 스터디 스타일 입체 브릭 버튼 */
+.btn-primary-glow {
+  background: var(--cta-bg);
+  color: var(--cta-ink);
+  border: none;
+  font-weight: 900;
+  padding: 12px 18px;
+  border-radius: 14px;
+  font-size: 14.5px;
+  cursor: pointer;
+  box-shadow: 0 4px 0 var(--cta-lip);
+  transition: transform 0.12s, filter 0.15s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.btn-primary-glow:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 var(--cta-lip);
+}
+
+.btn-secondary-glass {
+  background: rgba(255, 255, 255, 0.16);
+  color: var(--stage-ink);
+  border: 1.5px solid rgba(255, 255, 255, 0.28);
+  font-weight: 800;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 13px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  white-space: nowrap;
+}
+
+.surface-card .btn-secondary-glass,
+.admin-panel .btn-secondary-glass,
+.firebase-config-banner .btn-secondary-glass,
+.finale-stage-card .btn-secondary-glass {
+  background: var(--surface);
+  color: var(--ink);
+  border: 2px solid var(--line);
+}
+
+.btn-full {
+  width: 100%;
+}
+
+/* 파스텔 3단 요약 블록 (등불 스터디 .stat 스타일) */
+.pastel-stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.pastel-stat {
+  border-radius: 14px;
+  padding: 12px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.pastel-stat.s-coral,
+.vault-stat-card.s-coral {
+  background: var(--s1-bg);
+  color: var(--s1-ink);
+}
+
+.pastel-stat.s-butter,
+.vault-stat-card.s-butter {
+  background: var(--s2-bg);
+  color: var(--s2-ink);
+}
+
+.pastel-stat.s-mint,
+.vault-stat-card.s-mint {
+  background: var(--s3-bg);
+  color: var(--s3-ink);
+}
+
+.pastel-stat .p-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ink);
+  opacity: 0.78;
+}
+
+.pastel-stat .p-val {
+  font-size: 13.5px;
+  font-weight: 900;
+}
+
+/* 빠른 참여 오픈 방 리스트 */
+.quick-rooms-box {
+  background: var(--surface);
+  border-radius: 18px;
+  padding: 14px 16px;
+  box-shadow: var(--card-shadow);
+}
+
+.quick-rooms-header {
+  margin-bottom: 10px;
+}
+
+.quick-title {
+  font-size: 12.5px;
+  font-weight: 800;
+  color: var(--muted);
+}
+
+.quick-rooms-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 8px;
+}
+
+.quick-room-item {
+  background: var(--bg);
+  border: 2px solid var(--line);
+  border-radius: 12px;
+  padding: 10px 12px;
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.quick-room-item:hover,
+.quick-room-item:active {
+  border-color: var(--brand-accent);
+  background: var(--surface);
+}
+
+.quick-room-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 6px;
+}
+
+.quick-room-code {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #FFFFFF;
+  background: var(--brand-accent);
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+
+.quick-room-rem {
+  font-size: 11px;
+  color: var(--leaf);
+  font-weight: 800;
+}
+
+.quick-room-name {
+  font-size: 13.5px;
+  font-weight: 800;
+  color: var(--ink);
+}
+
+/* 우측 컴팩트 레이더 프리뷰 카드 */
+.preview-card-inner {
+  height: 100%;
+  background: var(--stage-bg);
+  color: var(--stage-ink);
+  border-radius: 20px;
+  padding: 18px;
+  box-shadow: var(--stage-shadow);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.preview-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11.5px;
+  font-weight: 800;
+}
+
+.status-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(255, 255, 255, 0.14);
+  padding: 4px 10px;
+  border-radius: 999px;
+  color: var(--stage-highlight);
+}
+
+.status-chip .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--stage-highlight);
+}
+
+.rarity-chip {
+  color: var(--stage-muted);
+  font-size: 11.5px;
+}
+
+.preview-radar-stage {
+  position: relative;
+  width: 190px;
+  height: 190px;
+  margin: 12px auto;
+  border-radius: 50%;
+  border: 1.5px solid var(--stage-ring);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.sonar-circle {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px dashed var(--stage-ring);
+}
+.sonar-circle.ring-1 { width: 82%; height: 82%; }
+.sonar-circle.ring-2 { width: 55%; height: 55%; }
+.sonar-circle.ring-3 { width: 28%; height: 28%; }
+
+.sonar-sweep {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, var(--stage-sweep) 0deg, transparent 75deg, transparent 360deg);
+  animation: spinRadar 3.4s linear infinite;
+}
+
+@keyframes spinRadar {
+  to { transform: rotate(360deg); }
+}
+
+.sonar-crosshair-h {
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  background: var(--stage-ring);
+}
+.sonar-crosshair-v {
+  position: absolute;
+  height: 100%;
+  width: 1px;
+  background: var(--stage-ring);
+}
+
+.compass-dir {
+  position: absolute;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--stage-muted);
+}
+.dir-n { top: 6px; color: var(--stage-highlight); }
+.dir-s { bottom: 6px; }
+.dir-e { right: 8px; }
+.dir-w { left: 8px; }
+
+.target-blip-demo {
+  position: absolute;
+  top: 24%;
+  right: 26%;
+  font-size: 15px;
+}
+
+.preview-3d-arrow {
+  font-size: 32px;
+  color: var(--stage-highlight);
+  transform: rotate(32deg);
+}
+
+.preview-telemetry {
+  text-align: center;
+}
+
+.telemetry-dist {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--stage-ink);
+  line-height: 1.1;
+}
+
+.telemetry-dist .dist-unit {
+  font-size: 15px;
+  color: var(--stage-muted);
+}
+
+.telemetry-guide {
+  font-size: 12px;
+  color: var(--stage-muted);
+  margin-top: 3px;
+}
+
+/* ==================== 액티브 탐험 대시보드 (모바일 한 화면 최적화) ==================== */
+.hunt-status-banner {
+  background: var(--surface);
+  border-radius: 16px;
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 14px;
+  box-shadow: var(--card-shadow);
+}
+
+.banner-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.live-badge {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: var(--brand-accent);
+  color: #FFFFFF;
+  white-space: nowrap;
+}
+
+.room-titles h2 {
+  font-size: 16.5px;
+  font-weight: 900;
+  color: var(--ink);
+  line-height: 1.25;
+}
+
+.room-titles p {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.banner-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: nowrap;
+}
+
+.player-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--bg);
+  border: 1.5px solid var(--line);
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 12.5px;
+  white-space: nowrap;
+}
+
+.player-score {
+  color: var(--brand-accent);
+  font-family: "IBM Plex Mono", monospace;
+}
+
+.btn-ghost-xs,
+.btn-exit-hunt {
+  background: var(--bg);
+  border: 1.5px solid var(--line);
+  color: var(--muted);
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.hunt-dashboard-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 16px;
+  align-items: start;
+}
+
+/* 메인 스테이지 카드 (퀴즈 & 레이더) */
+.stage-card {
+  background: var(--stage-bg);
+  color: var(--stage-ink);
+  border-radius: 22px;
+  padding: 20px;
+  box-shadow: var(--stage-shadow);
+}
+
+.finale-stage-card {
+  background: var(--surface);
+  color: var(--ink);
+  text-align: center;
+  padding: 32px 20px;
+}
+
+.stage-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+  font-size: 12px;
+}
+
+.stage-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11.5px;
+  font-weight: 800;
+  padding: 4px 11px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  color: var(--stage-highlight);
+}
+
+.remaining-pill {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--stage-muted);
+}
+
+/* 퀴즈 스테이지 */
+.locked-treasure-preview {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(0, 0, 0, 0.16);
+  padding: 12px 14px;
+  border-radius: 14px;
+  margin-bottom: 14px;
+}
+
+.locked-icon-aura {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.rarity-tag {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.18);
+  color: var(--stage-highlight);
+  display: inline-block;
+}
+
+.locked-treasure-info h3 {
+  font-size: 16px;
+  font-weight: 900;
+  margin: 2px 0;
+}
+
+.reward-pts {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 12px;
+  color: var(--stage-highlight);
+}
+
+.quiz-box {
+  background: rgba(0, 0, 0, 0.14);
+  border-radius: 16px;
+  padding: 16px;
+}
+
+.quiz-question-text {
+  font-family: "Gowun Batang", "Noto Sans KR", serif;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.55;
+  margin-bottom: 14px;
+  color: var(--stage-ink);
+}
+
+.quiz-input-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.quiz-input-wrap input {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.95);
+  border: 2px solid transparent;
+  border-radius: 12px;
+  padding: 11px 14px;
+  color: #1B1F2A;
+  font-size: 14.5px;
+  font-weight: 700;
+  outline: none;
+}
+
+.quiz-input-wrap input:focus {
+  border-color: var(--cta-bg);
+}
+
+.quiz-feedback {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 13px;
+  background: rgba(239, 68, 68, 0.25);
+  color: #FFE3E3;
+}
+
+.quiz-footer-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
+  gap: 8px;
+}
+
+.btn-ghost-sm {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--stage-ink);
+  padding: 6px 11px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.admin-panel .btn-ghost-sm,
+.firebase-config-banner .btn-ghost-sm {
+  background: var(--bg);
+  border: 1.5px solid var(--line);
+  color: var(--ink);
+}
+
+.hint-collapse-box {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--stage-highlight);
+  font-size: 13px;
+}
+
+/* ==================== 레이더 스테이지 (컴팩트 & 세련된 디자인) ==================== */
+.radar-target-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(0, 0, 0, 0.14);
+  padding: 10px 14px;
+  border-radius: 14px;
+  margin-bottom: 14px;
+}
+
+.target-big-icon {
+  font-size: 26px;
+}
+
+.target-title {
+  font-size: 15.5px;
+  font-weight: 900;
+  color: var(--stage-ink);
+}
+
+.target-pts-badge {
+  margin-left: auto;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--stage-highlight);
+  white-space: nowrap;
+}
+
+.hologram-radar-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 8px 0 14px;
+}
+
+.hologram-radar-disc {
+  position: relative;
+  width: 230px;
+  height: 230px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.14);
+  border: 2px solid var(--stage-ring);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.hologram-radar-wrapper[data-heat="hot"] .hologram-radar-disc {
+  border-color: var(--stage-highlight);
+  box-shadow: 0 0 28px rgba(255, 224, 138, 0.45);
+}
+
+.compass-dial-ring {
+  position: absolute;
+  inset: 6px;
+  border-radius: 50%;
+  transition: transform 0.25s ease-out;
+}
+
+.dial-mark {
+  position: absolute;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--stage-muted);
+}
+.mark-n { top: 4px; left: 50%; transform: translateX(-50%); color: var(--stage-highlight); }
+.mark-s { bottom: 4px; left: 50%; transform: translateX(-50%); }
+.mark-e { right: 6px; top: 50%; transform: translateY(-50%); }
+.mark-w { left: 6px; top: 50%; transform: translateY(-50%); }
+
+.radar-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px dashed var(--stage-ring);
+}
+.r-outer { width: 80%; height: 80%; }
+.r-mid { width: 54%; height: 54%; }
+.r-inner { width: 28%; height: 28%; }
+
+.radar-sweep-beam {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, var(--stage-sweep) 0deg, transparent 75deg, transparent 360deg);
+  animation: spinRadar 3s linear infinite;
+}
+
+.radar-axis-x {
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  background: var(--stage-ring);
+}
+.radar-axis-y {
+  position: absolute;
+  height: 100%;
+  width: 1px;
+  background: var(--stage-ring);
+}
+
+.radar-target-blip {
+  position: absolute;
+  top: 24%;
+  left: 66%;
+  transform: translate(-50%, -50%);
+  z-index: 4;
+  transition: all 0.35s ease-out;
+}
+
+.blip-core {
+  font-size: 16px;
+}
+
+.radar-center-arrow {
+  position: relative;
+  z-index: 5;
+  width: 64px;
+  height: 64px;
+  color: var(--stage-highlight);
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.arrow-svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* 거리 및 컨트롤 */
+.radar-telemetry-panel {
+  text-align: center;
+}
+
+.distance-readout-wrap {
+  margin-bottom: 6px;
+}
+
+.distance-number {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--stage-ink);
+  line-height: 1;
+}
+
+.distance-unit {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 18px;
+  color: var(--stage-muted);
+  margin-left: 3px;
+}
+
+.heat-meter-wrap {
+  max-width: 340px;
+  margin: 0 auto 10px;
+}
+
+.heat-meter-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  color: var(--stage-muted);
+}
+
+#heat-status-text {
+  color: var(--stage-highlight);
+}
+
+.heat-meter-track {
+  height: 7px;
+  background: rgba(0, 0, 0, 0.22);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.heat-meter-fill {
+  height: 100%;
+  background: var(--cta-bg);
+  border-radius: 999px;
+  transition: width 0.35s ease;
+}
+
+.direction-guidance-text {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--stage-ink);
+  margin-bottom: 12px;
+}
+
+.radar-control-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.btn-sensor-connect {
+  background: var(--cta-bg);
+  color: var(--cta-ink);
+  border: none;
+  padding: 10px 12px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 3px 0 var(--cta-lip);
+  white-space: nowrap;
+}
+
+.btn-ar-launch {
+  background: rgba(255, 255, 255, 0.16);
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  color: var(--stage-ink);
+  padding: 10px 12px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+/* 가상 이동 테스트 패드 */
+.sim-action-pad {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  padding: 10px;
+}
+
+.sim-pad-header {
+  font-size: 11px;
+  color: var(--stage-muted);
+  margin-bottom: 6px;
+}
+
+.sim-pad-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+
+.btn-sim-action {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: var(--stage-ink);
+  padding: 7px 8px;
+  border-radius: 9px;
+  font-size: 11.5px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn-sim-action.hot {
+  background: rgba(255, 209, 102, 0.22);
+  border-color: var(--stage-highlight);
+  color: var(--stage-highlight);
+}
+
+/* ==================== 우측 사이드바 카드 ==================== */
+.hunt-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.sidebar-card {
+  background: var(--surface);
+  border-radius: 20px;
+  padding: 18px;
+  box-shadow: var(--card-shadow);
+}
+
+.card-kicker {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  margin-bottom: 4px;
+}
+
+.sidebar-card h3 {
+  font-size: 16.5px;
+  font-weight: 900;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+
+.card-sub {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+
+.btn-clue-toggle {
+  width: 100%;
+  background: var(--bg);
+  border: 2px solid var(--line);
+  color: var(--ink);
+  padding: 10px;
+  border-radius: 12px;
+  font-size: 13.5px;
+  font-weight: 800;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.location-hint-box {
+  background: var(--s2-bg);
+  color: var(--ink);
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 10px;
+  font-size: 13.5px;
+  font-weight: 700;
+}
+
+.claim-cta-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.btn-claim-primary {
+  width: 100%;
+  background: var(--brand-accent);
+  border: none;
+  color: #FFFFFF;
+  padding: 12px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 3px 0 var(--brand-accent-lip);
+}
+
+.btn-claim-ar {
+  width: 100%;
+  background: var(--bg);
+  border: 2px solid var(--line);
+  color: var(--ink);
+  padding: 10px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.btn-ghost-full {
+  width: 100%;
+  margin-top: 8px;
+  background: transparent;
+  border: 1.5px dashed var(--line);
+  color: var(--muted);
+  padding: 8px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.journey-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.found-count-pill {
+  background: var(--s3-bg);
+  color: var(--s3-ink);
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.room-progress-bar {
+  height: 8px;
+  background: var(--surface-alt);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+
+.room-progress-fill {
+  height: 100%;
+  background: var(--brand-accent);
+  border-radius: 999px;
+  transition: width 0.4s ease;
+}
+
+.room-progress-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11.5px;
+  color: var(--muted);
+}
+
+.sync-indicator {
+  color: var(--leaf);
+  font-weight: 700;
+}
+
+.leaderboard-mini {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+
+.leader-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--bg);
+  padding: 7px 10px;
+  border-radius: 10px;
+  font-size: 12.5px;
+}
+
+.leader-rank {
+  font-weight: 900;
+  color: var(--brand-accent);
+  margin-right: 6px;
+}
+
+.leader-pts {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 12px;
+  color: var(--leaf);
+  font-weight: 800;
+}
+
+.live-feed-list {
+  max-height: 160px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.feed-item {
+  font-size: 12px;
+  background: var(--bg);
+  border-left: 3px solid var(--brand-accent);
+  padding: 7px 10px;
+  border-radius: 6px;
+  color: var(--ink);
+}
+
+/* ==================== 내 보물함 & 설명서 & 관리자 ==================== */
+.section-header-box {
+  margin-bottom: 18px;
+}
+
+.section-kicker {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+}
+
+.section-header-box h2 {
+  font-size: 22px;
+  font-weight: 900;
+  margin: 3px 0;
+  color: var(--ink);
+}
+
+.section-header-box p {
+  font-size: 13.5px;
+  color: var(--muted);
+}
+
+.vault-stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.vault-stat-card {
+  border-radius: 16px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stat-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink);
+  opacity: 0.75;
+}
+
+.stat-value {
+  font-size: 20px;
+  font-weight: 900;
+}
+
+.vault-treasures-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.treasure-trophy-card {
+  background: var(--surface);
+  border-radius: 18px;
+  padding: 18px;
+  text-align: center;
+  box-shadow: var(--card-shadow);
+}
+
+.trophy-icon {
+  font-size: 40px;
+  margin-bottom: 8px;
+}
+
+.trophy-pts {
+  font-family: "IBM Plex Mono", monospace;
+  color: var(--brand-accent);
+  font-weight: 800;
+  margin-top: 6px;
+}
+
+/* 설명서 & 프리뷰 */
+.moments-preview-card {
+  background: var(--surface);
+  border-radius: 20px;
+  padding: 18px;
+  margin-bottom: 16px;
+  box-shadow: var(--card-shadow);
+}
+
+.moments-preview-card h3 {
+  font-size: 15.5px;
+  font-weight: 900;
+}
+
+.moments-btn-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.btn-moment-preview {
+  background: var(--bg);
+  border: 1.5px solid var(--line);
+  color: var(--ink);
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.btn-moment-preview:hover {
+  border-color: var(--brand-accent);
+}
+
+.manual-two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.manual-panel {
+  background: var(--surface);
+  border-radius: 20px;
+  padding: 18px;
+  box-shadow: var(--card-shadow);
+}
+
+.manual-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 800;
+  color: #FFFFFF;
+  background: var(--brand-accent);
+  padding: 3px 10px;
+  border-radius: 999px;
+  margin-bottom: 8px;
+}
+
+.manual-badge.admin {
+  background: var(--blue-accent);
+}
+
+.manual-panel h3 {
+  font-size: 17px;
+  font-weight: 900;
+  margin-bottom: 12px;
+}
+
+.manual-step-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.manual-step-list li {
+  background: var(--bg);
+  border-radius: 12px;
+  padding: 12px 14px;
+}
+
+.manual-step-list li strong {
+  display: block;
+  color: var(--ink);
+  font-size: 13.5px;
+  margin-bottom: 3px;
+}
+
+.manual-step-list li p {
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+/* 관리자 스튜디오 */
+.admin-auth-card {
+  max-width: 400px;
+  background: var(--surface);
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: var(--card-shadow);
+}
+
+.admin-login-form {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.admin-login-form input {
+  flex: 1;
+  background: var(--bg);
+  border: 1.5px solid var(--line);
+  border-radius: 10px;
+  padding: 10px 12px;
+  color: var(--ink);
+}
+
+.firebase-config-banner {
+  background: var(--surface);
+  border-radius: 20px;
+  padding: 18px;
+  margin-bottom: 16px;
+  box-shadow: var(--card-shadow);
+}
+
+.fb-banner-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.fb-banner-header h3 {
+  font-size: 16px;
+  font-weight: 900;
+}
+
+.fb-input-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.fb-input-row input {
+  flex: 1;
+  min-width: 200px;
+  background: var(--bg);
+  border: 1.5px solid var(--line);
+  border-radius: 10px;
+  padding: 9px 12px;
+  color: var(--ink);
+  font-size: 13px;
+}
+
+.fb-guide-box {
+  margin-top: 10px;
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+.admin-grid {
+  display: grid;
+  grid-template-columns: 0.95fr 1.05fr;
+  gap: 16px;
+  align-items: start;
+}
+
+.admin-panel {
+  background: var(--surface);
+  border-radius: 20px;
+  padding: 18px;
+  box-shadow: var(--card-shadow);
+}
+
+.admin-panel-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.admin-panel h3 {
+  font-size: 17px;
+  font-weight: 900;
+  margin-bottom: 12px;
+}
+
+.admin-panel-head h3 {
+  margin-bottom: 0;
+}
+
+.admin-room-card {
+  background: var(--bg);
+  border: 1.5px solid var(--line);
+  border-radius: 14px;
+  padding: 12px 14px;
+  margin-bottom: 10px;
+}
+
+.admin-room-actions {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  background: var(--bg);
+  border: 1.5px solid var(--line);
+  border-radius: 10px;
+  padding: 9px 12px;
+  color: var(--ink);
+  font-size: 13.5px;
+}
+
+.form-row-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.admin-treasures-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 14px 0 10px;
+}
+
+.btn-secondary-sm {
+  background: var(--bg);
+  border: 1.5px solid var(--line);
+  color: var(--ink);
+  padding: 5px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn-danger-sm {
+  background: var(--s1-bg);
+  border: none;
+  color: var(--s1-ink);
+  padding: 5px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.admin-treasure-item {
+  background: var(--bg);
+  border: 1.5px solid var(--line);
+  border-radius: 14px;
+  padding: 12px;
+  margin-bottom: 10px;
+}
+
+.gps-capture-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+  background: var(--s3-bg);
+  padding: 8px 10px;
+  border-radius: 10px;
+}
+
+.gps-capture-row input {
+  width: 110px !important;
+  padding: 6px 8px !important;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11.5px !important;
+  background: var(--surface) !important;
+}
+
+.btn-gps-pick {
+  background: var(--leaf);
+  border: none;
+  color: #FFFFFF;
+  font-weight: 800;
+  font-size: 11.5px;
+  padding: 7px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-left: auto;
+  white-space: nowrap;
+}
+
+/* ==================== 모달 공통 ==================== */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(8, 12, 22, 0.58);
+  backdrop-filter: blur(6px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.modal-card {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  background: var(--surface);
+  color: var(--ink);
+  border-radius: 22px;
+  padding: 22px 20px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+}
+
+.modal-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: var(--bg);
+  border: none;
+  color: var(--ink);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.modal-kicker {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--brand-accent);
+  margin-bottom: 4px;
+}
+
+.modal-card h3 {
+  font-size: 19px;
+  font-weight: 900;
+  margin-bottom: 6px;
+}
+
+.modal-card p {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 14px;
+}
+
+.code-big-input {
+  text-align: center;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 19px !important;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.demo-code-helper {
+  font-size: 12.5px;
+  color: var(--s3-ink);
+  background: var(--s3-bg);
+  padding: 9px 12px;
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+
+.form-error {
+  background: var(--s1-bg);
+  color: var(--s1-ink);
+  padding: 9px 12px;
+  border-radius: 10px;
+  font-size: 12.5px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+/* AR 모달 */
+.ar-modal-card {
+  max-width: 520px;
+  padding: 16px;
+}
+
+.ar-hud-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.ar-hud-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 900;
+  color: var(--ink);
+}
+
+.ar-rec-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #EF4444;
+}
+
+.ar-close {
+  position: static;
+  width: auto;
+  padding: 5px 12px;
+  border-radius: 8px;
+}
+
+.ar-viewport {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #0F172A;
+}
+
+#ar-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: relative;
+  z-index: 1;
+}
+
+.ar-holo-fallback {
+  position: absolute;
+  inset: 0;
+  background: var(--stage-bg);
+  z-index: 0;
+}
+
+.ar-hud-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 12px;
+  pointer-events: none;
+}
+
+.hud-top-telemetry {
+  display: flex;
+  justify-content: space-between;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  color: #FFFFFF;
+  background: rgba(0, 0, 0, 0.45);
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.ar-floating-treasure {
+  pointer-events: auto;
+  align-self: center;
+  margin: auto;
+  text-align: center;
+  cursor: pointer;
+}
+
+.ar-treasure-emoji {
+  font-size: 56px;
+}
+
+.ar-treasure-label {
+  background: var(--cta-bg);
+  color: var(--cta-ink);
+  font-weight: 900;
+  font-size: 11.5px;
+  padding: 4px 11px;
+  border-radius: 999px;
+  margin-top: 4px;
+}
+
+.hud-bottom-bar {
+  background: rgba(0, 0, 0, 0.55);
+  padding: 6px 10px;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 12px;
+  color: #FFFFFF;
+}
+
+.ar-controls-footer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.ar-controls-footer .btn-secondary-glass {
+  background: var(--bg);
+  color: var(--ink);
+  border: 1.5px solid var(--line);
+}
+
+/* 축하 모달 */
+.celebration-card {
+  text-align: center;
+}
+
+.interactive-chest-box {
+  margin: 16px auto;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background: var(--s2-bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.chest-3d-icon {
+  font-size: 60px;
+}
+
+.chest-hit-counter {
+  margin-top: 4px;
+  font-weight: 800;
+  color: var(--s2-ink);
+  font-size: 12px;
+}
+
+.opened-Burst-icon {
+  font-size: 64px;
+  margin: 8px 0;
+}
+
+.celeb-points-pill {
+  display: inline-block;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--cta-ink);
+  background: var(--cta-bg);
+  padding: 5px 16px;
+  border-radius: 999px;
+  margin: 8px 0 12px;
+}
+
+/* 앱 설치 모달 */
+.install-modal-card {
+  max-width: 520px;
+  max-height: 88vh;
+  overflow-y: auto;
+}
+
+.install-direct-box {
+  background: var(--s2-bg);
+  border-radius: 14px;
+  padding: 14px;
+  margin-bottom: 14px;
+  text-align: center;
+}
+
+.install-direct-note {
+  font-size: 11.5px !important;
+  color: var(--muted) !important;
+  margin: 6px 0 0 !important;
+}
+
+.install-os-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.install-os-card {
+  background: var(--bg);
+  border-radius: 12px;
+  padding: 12px 14px;
+}
+
+.os-title {
+  font-size: 13.5px;
+  font-weight: 900;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+
+.install-os-card ol {
+  padding-left: 16px;
+  font-size: 12.5px;
+  color: var(--muted);
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.install-qr-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--s3-bg);
+  border-radius: 12px;
+  padding: 10px 14px;
+}
+
+.install-qr-box img {
+  border-radius: 8px;
+  background: #FFFFFF;
+  padding: 3px;
+  flex-shrink: 0;
+}
+
+.install-qr-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 12px;
+  color: var(--ink);
+}
+
+/* QR 프린트 모달 */
+.qr-print-modal-card {
+  max-width: 720px;
+  max-height: 86vh;
+  overflow-y: auto;
+}
+
+.qr-print-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.qr-print-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.qr-print-actions .modal-close {
+  position: static;
+}
+
+.qr-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.qr-sticker-card {
+  background: #FFFFFF;
+  color: #1B1F2A;
+  border-radius: 14px;
+  padding: 14px;
+  text-align: center;
+  border: 2px solid var(--line);
+}
+
+.qr-confirm-code {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--brand-accent);
+  margin-top: 4px;
+}
+
+/* 토스트 */
+.toast-container {
+  position: fixed;
+  top: 66px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  pointer-events: none;
+  width: max-content;
+  max-width: 92vw;
+}
+
+.toast-msg {
+  background: var(--ink);
+  color: var(--surface);
+  padding: 10px 16px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 800;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.22);
+}
+
+/* ==================== 스마트폰 모바일 완벽 반응형 최적화 ==================== */
+@media (max-width: 768px) {
+  .desktop-nav {
+    display: none !important;
+  }
+
+  .mobile-bottom-nav {
+    display: block;
+  }
+
+  .app-main {
+    max-width: 480px;
+    padding: 12px 14px 86px;
+  }
+
+  .header-inner {
+    max-width: 480px;
+    height: 52px;
+    padding: 0 12px;
+  }
+
+  .logo-emblem {
+    width: 30px;
+    height: 30px;
+    font-size: 15px;
+  }
+
+  .logo-title {
+    font-size: 15px;
+  }
+
+  .cloud-dot-badge {
+    display: none;
+  }
+
+  .theme-btn {
+    font-size: 11px;
+    padding: 3px 7px;
+  }
+
+  .btn-install-compact {
+    font-size: 11px;
+    padding: 4px 8px;
+  }
+
+  .icon-pill-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 13px;
+  }
+
+  .hero-grid,
+  .hunt-dashboard-grid,
+  .manual-two-col,
+  .admin-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .hero-card-featured {
+    padding: 18px 16px;
+  }
+
+  .hero-headline {
+    font-size: 21px;
+  }
+
+  .hologram-radar-disc {
+    width: 200px;
+    height: 200px;
+  }
+
+  .distance-number {
+    font-size: 34px;
+  }
+}
+
+@media (max-width: 375px) {
+  .btn-install-compact {
+    display: none;
+  }
+}
