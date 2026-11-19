@@ -8,6 +8,9 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="apple-mobile-web-app-title" content="트레저헌터" />
   <title>트레저 헌터 — 액션 GPS & AR 보물찾기</title>
+  <link rel="icon" type="image/svg+xml" href="./icon.svg" />
+  <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png" />
+  <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
   <link rel="manifest" href="./manifest.json" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,7 +28,9 @@
   <header class="app-header">
     <div class="header-inner">
       <button class="brand-logo" id="btn-home-logo" type="button">
-        <span class="logo-emblem">🧭</span>
+        <span class="logo-emblem" style="padding:0; overflow:hidden; background:none;">
+          <img src="./icon.svg" alt="트레저 헌터 아이콘" style="width:100%; height:100%; display:block;" />
+        </span>
         <div class="logo-text-wrap">
           <span class="logo-title">트레저 헌터</span>
           <span class="cloud-dot-badge" id="cloud-status-pill" title="클라우드 실시간 연동 상태">

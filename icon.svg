@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <!-- 생기 발랄한 파스텔 스카이 배경 그라데이션 -->
+    <linearGradient id="pastelBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#69BFFF" />
+      <stop offset="55%" stop-color="#558BF2" />
+      <stop offset="100%" stop-color="#7970F2" />
+    </linearGradient>
+
+    <!-- 따뜻한 파스텔 옐로우 링 그라데이션 -->
+    <linearGradient id="sunnyGold" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFE484" />
+      <stop offset="100%" stop-color="#FFD166" />
+    </linearGradient>
+
+    <!-- 코랄 핑크 포인터 -->
+    <linearGradient id="coralPink" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF8787" />
+      <stop offset="100%" stop-color="#FF5C5C" />
+    </linearGradient>
+
+    <!-- 민트 그린 보석 -->
+    <linearGradient id="mintGem" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#63E6BE" />
+      <stop offset="100%" stop-color="#20C997" />
+    </linearGradient>
+  </defs>
+
+  <!-- 1. 파스텔 스카이 라운드 배경 -->
+  <rect width="512" height="512" rx="118" fill="url(#pastelBg)" />
+
+  <!-- 배경 파스텔 구름/버블 장식 -->
+  <circle cx="88" cy="410" r="65" fill="#FFFFFF" opacity="0.14" />
+  <circle cx="430" cy="105" r="55" fill="#FFE3E3" opacity="0.18" />
+  <circle cx="410" cy="420" r="45" fill="#D3F9EC" opacity="0.18" />
+
+  <!-- 깜찍한 파스텔 반짝이 별 & 도트 장식 -->
+  <!-- 좌상단 옐로우 반짝이 별 -->
+  <path d="M98 74 C102 92 108 98 126 102 C108 106 102 112 98 130 C94 112 88 106 70 102 C88 98 94 92 98 74 Z" fill="#FFF3C4" />
+  <!-- 우상단 민트 반짝이 별 -->
+  <path d="M412 78 C415 91 420 96 433 99 C420 102 415 107 412 120 C409 107 404 102 391 99 C404 96 409 91 412 78 Z" fill="#D3F9EC" />
+  <!-- 좌하단 코랄 핑크 하트/버블 도트 -->
+  <circle cx="84" cy="368" r="14" fill="#FF8787" />
+  <circle cx="112" cy="396" r="8" fill="#FFF3C4" />
+  <!-- 우하단 옐로우 별 -->
+  <path d="M418 362 C421 374 425 378 437 381 C425 384 421 388 418 400 C415 388 411 384 399 381 C411 378 415 374 418 362 Z" fill="#FFE08A" />
+
+  <!-- 2. 상단 깜찍한 미니 황금 왕관 (Crown) -->
+  <!-- 왕관 입체 그림자 -->
+  <path d="M188 128 L174 72 L222 100 L256 54 L290 100 L338 72 L324 128 Z" fill="#E8B23F" transform="translate(0, 6)" stroke="#E8B23F" stroke-width="12" stroke-linejoin="round" />
+  <!-- 왕관 본체 -->
+  <path d="M188 128 L174 72 L222 100 L256 54 L290 100 L338 72 L324 128 Z" fill="url(#sunnyGold)" stroke="#FFF3C4" stroke-width="8" stroke-linejoin="round" />
+  <!-- 왕관 꼭대기 파스텔 방울 보석 3개 -->
+  <circle cx="172" cy="66" r="11" fill="#FF6B6B" stroke="#FFFFFF" stroke-width="4" />
+  <circle cx="256" cy="46" r="14" fill="#38D9A9" stroke="#FFFFFF" stroke-width="4" />
+  <circle cx="340" cy="66" r="11" fill="#FF6B6B" stroke="#FFFFFF" stroke-width="4" />
+
+  <!-- 3. 통통하고 입체감 있는 파스텔 나침반 본체 -->
+  <!-- 입체 바닥 그림자 (3D Brick Lip) -->
+  <circle cx="256" cy="296" r="164" fill="#3267B8" opacity="0.38" />
+  <circle cx="256" cy="290" r="160" fill="#E8B23F" />
+
+  <!-- 옐로우 외곽 테두리 링 -->
+  <circle cx="256" cy="278" r="160" fill="url(#sunnyGold)" stroke="#FFF9DB" stroke-width="6" />
+
+  <!-- 크림 화이트 나침반 다이얼 -->
+  <circle cx="256" cy="278" r="128" fill="#FFFDF9" />
+  <!-- 다이얼 내부 파스텔 점선 링 -->
+  <circle cx="256" cy="278" r="106" fill="none" stroke="#DCE8F8" stroke-width="4" stroke-dasharray="10 10" />
+
+  <!-- 동서남북 귀여운 파스텔 도트 마커 -->
+  <circle cx="256" cy="166" r="10" fill="#FF6B6B" /> <!-- N: 코랄 -->
+  <circle cx="368" cy="278" r="9" fill="#38D9A9" />  <!-- E: 민트 -->
+  <circle cx="256" cy="390" r="9" fill="#4DABF7" />  <!-- S: 스카이 -->
+  <circle cx="144" cy="278" r="9" fill="#FFD166" />  <!-- W: 옐로우 -->
+
+  <!-- 귀여운 발그레 볼터치 (Blush cheeks) -->
+  <ellipse cx="176" cy="298" rx="16" ry="10" fill="#FFB8B8" opacity="0.55" />
+  <ellipse cx="336" cy="298" rx="16" ry="10" fill="#FFB8B8" opacity="0.55" />
+
+  <!-- 4. 중앙 통통한 나침반 바늘 (살짝 기울어진 생기 있는 각도) -->
+  <g transform="translate(256, 278) rotate(22)">
+    <!-- 바늘 그림자 -->
+    <polygon points="0,-96 34,0 0,96 -34,0" fill="#CBD5E1" transform="translate(0, 6)" />
+    <!-- 남쪽(아래) 파스텔 민트-블루 바늘 -->
+    <polygon points="-32,0 32,0 0,92" fill="#74C0FC" />
+    <polygon points="0,0 32,0 0,92" fill="#4DABF7" />
+    <!-- 북쪽(위) 생기 발랄 코랄 핑크-레드 바늘 -->
+    <polygon points="-32,0 32,0 0,-96" fill="url(#coralPink)" />
+    <polygon points="-32,0 0,0 0,-96" fill="#FF8787" />
+    <!-- 중앙 귀여운 황금 보석 버튼 -->
+    <circle cx="0" cy="0" r="22" fill="#FFD166" stroke="#FFFFFF" stroke-width="6" />
+    <circle cx="-5" cy="-5" r="5" fill="#FFFFFF" />
+  </g>
+</svg>

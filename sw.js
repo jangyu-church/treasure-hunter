@@ -1,4 +1,4 @@
-const CACHE_NAME = 'treasure-hunter-x-v2';
+const CACHE_NAME = 'treasure-hunter-x-v3';
 
 self.addEventListener('install', event => {
   self.skipWaiting();
